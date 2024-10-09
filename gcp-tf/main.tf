@@ -61,7 +61,7 @@ resource "google_compute_instance" "instance-20240930-114958" {
   }
 
   metadata = {
-    "ssh-keys" = "ansible:${file("gcp-server.pub")}"
+    "ssh-keys" = "ansible:${file("~/.ssh/gcp-server.pub")}"
   }
 
   zone = "us-central1-c"
