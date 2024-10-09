@@ -1,11 +1,24 @@
-- name: My first play
+- name: Adding Quality-of-Life CLI tools
   hosts: myhosts
-  tasks:
-   - name: Ping my hosts
-     ansible.builtin.ping:
 
-   - name: Add a package
-     become: yes
-     apt:
-      name: ripgrep
+  tasks:
+
+  - name: Update apt cache
+    become: yes
+    ansible.builtin.apt:
+      update_cache: yes
+    changed_when: false
+
+  - name: Install a list of packages
+    become: yes
+    ansible.builtin.apt:
+      name:
+        - ripgrep
+        - htop
+        - fd-find
       state: present
+    register: package_install
+
+  - name: Display package installation results
+    ansible.builtin.debug:
+      var: package_install
